@@ -11,8 +11,8 @@ nodejs = "20.*"
 pnpm = "9.*"
 
 [tasks]
-dev = "npm run dev"
-build = "npm run build"
-check = "npm run check"
+dev = "pnpm dev"
+build = "pnpm build"
+check = "pnpm check"
 synthesize = "python scripts/synthesize.py"
 validate = "node scripts/validate_mermaid.mjs"
