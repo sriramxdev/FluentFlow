@@ -1,0 +1,5 @@
+[
+  { "id": "microservices", "name": "Microservices Gateway", "snippet": "Client makes request through API Gateway with JWT Auth. Gateway routes to User Service and Order Service. Both connect to Redis Cache and write to PostgreSQL database." },
+  { "id": "oauth2", "name": "OAuth2 PKCE Flow", "snippet": "Single Page App initiates authorization request with Code Challenge to Auth Server. User consents. Auth Server redirects with Auth Code. SPA exchanges Auth Code and Code Verifier for Access Token." },
+  { "id": "data_pipeline", "name": "Real-time Event Stream", "snippet": "IoT sensors stream metrics to Kafka Ingestion Topic. Apache Flink processes sliding window aggregates. Output streams to TimescaleDB and triggers alerts via Webhook." }
+]

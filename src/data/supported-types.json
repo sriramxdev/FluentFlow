@@ -1,0 +1,1 @@
+{ "allowedExtensions": [".json", ".pdf", ".txt", ".md", ".yaml"], "accept": ".json,.pdf,.txt,.md,.yaml", "blockedMimePrefixes": ["image/"], "rejectImages": true, "errorMessage": "Invalid file type. Images are not supported. Please upload a .json, .pdf, .txt, .yaml, or .md file." }

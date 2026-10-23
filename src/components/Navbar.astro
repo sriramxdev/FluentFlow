@@ -1,0 +1,18 @@
+---
+import navigation from '../data/navigation.json';
+import config from '../data/site-config.json';
+---
+<header class="sticky top-0 z-40 border-b border-slate-200/80 bg-slate-50/85 backdrop-blur dark:border-slate-700/80 dark:bg-slate-950/85">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4" aria-label={navigation.actions.menu}>
+    <a href="/" class="flex items-center gap-2 text-sm font-medium tracking-tight text-slate-800 dark:text-slate-200"><span class="grid size-8 place-items-center rounded-lg bg-sky-400 text-slate-950">F</span><span>{navigation.brand}</span></a>
+    <div class="hidden items-center gap-6 md:flex">{navigation.links.map((link) => <a class="text-sm font-medium text-slate-800 transition hover:text-sky-600 dark:text-slate-200 dark:hover:text-sky-400" href={link.href}>{link.label}</a>)}</div>
+    <div class="flex items-center gap-3"><span class="hidden text-sm font-medium text-slate-800 dark:text-slate-200 lg:inline">{config.author.name}</span><button id="theme-toggle" class="rounded-lg border border-slate-300 p-2 text-sm dark:border-slate-700/80" aria-label={navigation.actions.themeDark}><span id="theme-icon" aria-hidden="true">◐</span></button></div>
+  </nav>
+</header>
+<script define:vars={{ themeLight: navigation.actions.themeLight, themeDark: navigation.actions.themeDark }}>
+  const toggle = document.querySelector('#theme-toggle');
+  const icon = document.querySelector('#theme-icon');
+  const update = () => { const dark = document.documentElement.classList.contains('dark'); if (icon) icon.textContent = dark ? '☼' : '◐'; toggle?.setAttribute('aria-label', dark ? themeLight : themeDark); };
+  toggle?.addEventListener('click', () => { const dark = document.documentElement.classList.toggle('dark'); localStorage.setItem('fluentflow-theme', dark ? 'dark' : 'light'); update(); window.dispatchEvent(new CustomEvent('fluentflow-theme-change')); });
+  update();
+</script>

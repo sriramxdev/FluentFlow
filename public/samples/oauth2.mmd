@@ -1,0 +1,7 @@
+sequenceDiagram
+  participant SPA as Single Page App
+  participant Auth as Auth Server
+  SPA->>Auth: Authorization request + code challenge
+  Auth-->>SPA: Authorization code
+  SPA->>Auth: Code + verifier
+  Auth-->>SPA: Access token

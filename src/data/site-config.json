@@ -1,0 +1,11 @@
+{
+  "title": "FluentFlow",
+  "tagline": "GitOps Architecture & Diagram Synthesis Engine",
+  "description": "A self-healing Diagram-as-Code pipeline translating unstructured technical specs into verified architecture flowcharts via GitHub Actions and Gemini AI.",
+  "author": { "name": "Sri Ram Sharma", "role": "Lead Architect & Developer", "certification": "GitHub Foundations Certified" },
+  "hero": { "eyebrow": "Self-healing Diagram-as-Code", "headline": "Turn technical intent into living architecture.", "subheadline": "Describe a system, synthesize Mermaid, and let a verified GitHub Actions pipeline keep the diagram healthy." },
+  "labels": { "uploadTitle": "Specification input", "uploadDescription": "Drop a technical specification or start from a curated architecture preset.", "uploadBrowse": "Drop a specification here or browse", "orPreset": "or use a preset", "specification": "Specification", "specificationPlaceholder": "Describe the components, data stores, and relationships you want to visualize.", "canvasTitle": "Verified diagram canvas", "canvasDescription": "Pan, zoom, inspect, and export the current Mermaid graph.", "exportSvg": "SVG", "exportPng": "PNG", "exportPdf": "PDF", "fullscreen": "Open fullscreen", "logsTitle": "Pipeline activity", "logsDescription": "GitHub Actions and local validation events", "generate": "Synthesize diagram", "clear": "Clear workspace", "emptyCanvas": "Your verified diagram will appear here.", "offlineNotice": "Offline simulator ready" },
+  "activity": { "initial": ["Workspace initialized", "Offline Mermaid simulator ready", "Waiting for a specification"], "success": "Diagram compiled successfully", "failure": "Diagram validation needs attention" },
+  "footer": { "course": "7th Semester Industrial Training Evaluation", "badges": ["GitHub Actions", "Astro", "Mermaid.js", "Pixi", "Gemini AI"], "license": "MIT License" },
+  "stats": [{ "value": "3×", "label": "retry healing" }, { "value": "0$", "label": "free tier" }, { "value": "100%", "label": "local fallback" }]
+}

@@ -1,0 +1,19 @@
+---
+import config from '../data/site-config.json';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={config.description} />
+    <meta name="theme-color" content="#0f172a" />
+    <title>{config.title} · {config.tagline}</title>
+    <script is:inline>
+      const savedTheme = localStorage.getItem('fluentflow-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+    </script>
+  </head>
+  <body><slot /></body>
+</html>

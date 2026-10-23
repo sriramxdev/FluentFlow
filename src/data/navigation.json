@@ -1,0 +1,5 @@
+{
+  "brand": "FluentFlow",
+  "links": [{ "label": "Upload", "href": "#upload" }, { "label": "Diagram Canvas", "href": "#canvas" }, { "label": "Pipeline Logs", "href": "#logs" }],
+  "actions": { "themeLight": "Use light theme", "themeDark": "Use dark theme", "menu": "Toggle navigation" }
+}

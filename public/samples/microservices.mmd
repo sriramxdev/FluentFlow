@@ -1,0 +1,9 @@
+flowchart LR
+  Client --> Gateway[API Gateway]
+  Gateway --> Auth[JWT Auth]
+  Gateway --> Users[User Service]
+  Gateway --> Orders[Order Service]
+  Users --> Cache[Redis Cache]
+  Orders --> Cache
+  Users --> DB[(PostgreSQL)]
+  Orders --> DB

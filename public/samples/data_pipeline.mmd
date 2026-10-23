@@ -1,0 +1,5 @@
+flowchart LR
+  Sensors[IoT Sensors] --> Kafka[Kafka Ingestion]
+  Kafka --> Flink[Apache Flink]
+  Flink --> DB[(TimescaleDB)]
+  Flink --> Webhook[Alert Webhook]

@@ -1,0 +1,22 @@
+---
+import themeConfig from '../data/theme-config.json';
+import config from '../data/site-config.json';
+---
+<section id="canvas" class="glass rounded-2xl p-5 md:p-7">
+  <div class="flex flex-wrap items-start justify-between gap-3"><div><h2 class="text-xl font-semibold">{config.labels.canvasTitle}</h2><p class="mt-1 text-sm text-slate-700 dark:text-slate-300">{config.labels.canvasDescription}</p></div><div class="flex gap-2"><button class="export rounded-lg border border-slate-300 px-3 py-2 text-xs dark:border-slate-700/80" data-format="svg">{config.labels.exportSvg}</button><button class="export rounded-lg border border-slate-300 px-3 py-2 text-xs dark:border-slate-700/80" data-format="png">{config.labels.exportPng}</button><button class="export rounded-lg border border-slate-300 px-3 py-2 text-xs dark:border-slate-700/80" data-format="pdf">{config.labels.exportPdf}</button><button id="fullscreen" class="rounded-lg border border-slate-300 px-3 py-2 text-xs dark:border-slate-700/80" aria-label={config.labels.fullscreen}>↗</button></div></div>
+  <div id="diagram-viewport" class="mt-5 min-h-[25rem] overflow-auto rounded-xl bg-slate-100 p-6 dark:bg-slate-950"><div id="mermaid-output" class="grid min-h-[21rem] place-items-center text-base font-medium text-slate-400">{config.labels.emptyCanvas}</div></div>
+</section>
+<script define:vars={{ mermaidThemes: themeConfig, offlineNotice: config.labels.offlineNotice, success: config.activity.success, failure: config.activity.failure }}>
+  import mermaid from 'mermaid';
+  import { jsPDF } from 'jspdf';
+  const output = document.querySelector('#mermaid-output'); let source = 'flowchart LR\n  Start[Specification] --> Ready[Ready]'; let lastSvg = '';
+  const log = (message) => window.dispatchEvent(new CustomEvent('fluentflow-log', { detail: message }));
+  const render = async (diagram = source) => { source = diagram; mermaid.initialize({ startOnLoad: false, ...(document.documentElement.classList.contains('dark') ? mermaidThemes.dark : mermaidThemes.light) }); try { const result = await mermaid.render(`diagram-${Date.now()}`, source); lastSvg = result.svg; if (output) output.innerHTML = result.svg; log(success); } catch { if (output) output.textContent = failure; log(failure); } };
+  const fallback = (text) => { const nodes = [...new Set([...text.matchAll(/\b(?:API Gateway|User Service|Order Service|Redis Cache|PostgreSQL|Auth Server|Single Page App|Kafka|Flink|TimescaleDB|Webhook)\b/gi)].map((match) => match[0]))].slice(0, 8); return `flowchart LR\n  Input[Specification] --> ${nodes.length ? nodes.map((node, index) => `N${index}[${node}]`).join(' & ') : 'Output[Architecture]'}`; };
+  const download = (blob, name) => { const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = name; link.click(); URL.revokeObjectURL(link.href); };
+  document.querySelectorAll('.export').forEach((button) => button.addEventListener('click', () => { const format = button.dataset.format; const image = new Image(); image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(lastSvg)}`; image.onload = () => { const canvas = document.createElement('canvas'); canvas.width = image.width || 1200; canvas.height = image.height || 700; canvas.getContext('2d')?.drawImage(image, 0, 0); if (format === 'svg') download(new Blob([lastSvg], { type: 'image/svg+xml' }), 'fluentflow-diagram.svg'); else if (format === 'png') canvas.toBlob((blob) => blob && download(blob, 'fluentflow-diagram.png')); else { const pdf = new jsPDF({ orientation: 'landscape' }); pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 277, 170); pdf.save('fluentflow-diagram.pdf'); } }; }));
+  document.querySelector('#fullscreen')?.addEventListener('click', () => document.querySelector('#diagram-viewport')?.requestFullscreen());
+  window.addEventListener('fluentflow-generate', (event) => render(fallback(event.detail.specification)));
+  window.addEventListener('fluentflow-clear', () => render('flowchart LR\n  Input[Specification] --> Output[Architecture]'));
+  window.addEventListener('fluentflow-theme-change', () => render()); render(); log(offlineNotice);
+</script>

@@ -1,0 +1,18 @@
+[project]
+name = "fluentflow"
+version = "0.1.0"
+description = "A static architecture diagram synthesizer"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "win-64"]
+
+[dependencies]
+python = "3.11.*"
+nodejs = "20.*"
+pnpm = "9.*"
+
+[tasks]
+dev = "npm run dev"
+build = "npm run build"
+check = "npm run check"
+synthesize = "python scripts/synthesize.py"
+validate = "node scripts/validate_mermaid.mjs"

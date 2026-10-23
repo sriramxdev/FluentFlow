@@ -1,0 +1,12 @@
+---
+import config from '../data/site-config.json';
+---
+<section id="logs" class="glass rounded-2xl p-5 md:p-7">
+  <button id="logs-toggle" class="flex w-full items-center justify-between text-left"><span><h2 class="text-xl font-semibold">{config.labels.logsTitle}</h2><span class="mt-1 block text-sm text-slate-700 dark:text-slate-300">{config.labels.logsDescription}</span></span><span>⌄</span></button>
+  <div id="logs-panel" class="mt-5 border-t border-slate-200 pt-4 dark:border-slate-700/80"><ol id="log-list" class="space-y-3 text-sm"></ol></div>
+</section>
+<script define:vars={{ initialLogs: config.activity.initial }}>
+  const list = document.querySelector('#log-list'); const logs = JSON.parse(sessionStorage.getItem('fluentflow-logs') ?? 'null') ?? initialLogs;
+  const draw = () => { if (list) list.innerHTML = logs.map((entry, index) => `<li class="flex gap-3 text-slate-700 dark:text-slate-300"><span class="font-mono text-xs text-slate-500 dark:text-slate-400">${String(index + 1).padStart(2, '0')}</span><span>${entry}</span></li>`).join(''); sessionStorage.setItem('fluentflow-logs', JSON.stringify(logs)); };
+  draw(); window.addEventListener('fluentflow-log', (event) => { logs.push(String(event.detail)); draw(); }); document.querySelector('#logs-toggle')?.addEventListener('click', () => document.querySelector('#logs-panel')?.classList.toggle('hidden'));
+</script>

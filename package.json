@@ -1,0 +1,26 @@
+{
+  "name": "fluentflow",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "synthesize": "python scripts/synthesize.py",
+    "validate": "node scripts/validate_mermaid.mjs"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^5.1.0",
+    "astro": "^5.1.0",
+    "jspdf": "^2.5.2",
+    "mermaid": "^11.4.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@mermaid-js/mermaid-cli": "^11.4.2",
+    "typescript": "^5.6.3"
+  }
+}
